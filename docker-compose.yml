@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  admin-client:
+    build: ./admin
+    ports:
+      - "3000:3000"
+    environment:
+      - ADMIN_AUTH_SERVICE_URL=http://admin_auth:4003
+      - POSTS_SERVICE_URL=http://posts:4000
+      - COMMENTS_SERVICE_URL=http://comments:4001
+
+  user-client:
+    build: ./client
+    ports:
+      - "3001:3001"
+    environment:
+      - USER_AUTH_SERVICE_URL=http://auth:4002
+      - POSTS_SERVICE_URL=http://posts:4000
+      - COMMENTS_SERVICE_URL=http://comments:4001
+
+  admin-authentication:
+    build: ./admin_auth
+    ports:
+      - "4003:4003"
+
+  user-authentication:
+    build: ./auth
+    ports:
+      - "4002:4002"
+
+  posts:
+    build: ./posts
+    ports:
+      - "4000:4000"
+
+  comments:
+    build: ./comments
+    ports:
+      - "4001:4001"
