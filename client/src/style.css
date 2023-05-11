@@ -1,0 +1,300 @@
+/* App.css */
+
+.app-container {
+  min-height: 873px;
+  background-color: #698e79;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-header {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 1rem;
+}
+
+.app-body {
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  
+  background-image: url('background.jfif');
+}
+
+.comment-create button {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  float: right;
+  margin-top: 10px;
+}
+
+
+.comment-create button:hover {
+  background-color: #166fe5;
+}
+
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn {
+
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #0069d9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+
+.btn:hover {
+  background-color: #127474;
+}
+
+.post-create {
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width:100%;
+  background-color: #f9f9f9;
+}
+
+.post-create h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+}
+
+.LoginForm {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top:250px;
+  border-radius: 5px;
+
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.view_button {
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #4CAF50;
+  border: none;
+  border: 1px solid #4CAF50;
+  border-radius: 5px;
+  border-color: #4CAF50;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.view_button:hover {
+  background-color: #3e8e41;
+  color:white;
+}
+
+.view_count{
+  padding-left:32%;
+}
+
+p {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+
+.sidebar {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-right:20px;
+  width: 20%;
+  height:873px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.sidebar-section {
+  margin-bottom: 40px;
+}
+
+.sidebar-section h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section li {
+  margin-bottom: 10px;
+}
+
+.sidebar-button {
+  margin-top: 20px;
+  width:100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0c9397;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sidebar-button:hover {
+  background-color: #129beb;
+}
+
+.content {
+  width: 70%;
+  margin: 0 auto;
+}
+
+
+
+.search-box {
+  display: flex;
+  margin-bottom: 20px;
+  margin-top:20px;
+}
+
+.search-btn {
+  margin-left: 10px;
+  height:50px;
+}
+
+.popular-tags {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tags-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.comment-list {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  list-style-type: none;
+  width: 100%;
+}
+
+.comment-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-list button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #999;
+  margin-left: 5px;
+}
+
+.comment-list button:hover {
+  color: #555;
+}
