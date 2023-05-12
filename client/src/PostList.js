@@ -95,7 +95,11 @@ const PostList = () => {
           <span style={{ fontSize: "12px", marginLeft: "5px" }}>
             {postDate}
           </span>
-          <p style={{ fontWeight:12, fontSize: "15px" }}>{mainContent}</p>
+          <p style={{ fontWeight: 12, fontSize: "15px" }}>
+              {post.main_content.length > 130
+                ? post.main_content.slice(0, 130) + "..."
+                : post.main_content}
+          </p>
           <button
             className="view_button"
             onClick={() => handlePostClick(post)}

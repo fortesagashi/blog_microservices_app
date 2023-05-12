@@ -71,8 +71,6 @@ const PostList = ({}) => {
   .slice(startIndex, endIndex)
   .map((post) => {
     const postDate = new Date(post.date).toLocaleString();
-    const mainContent = post.main_content.split("\n").slice(0, 5).join("\n");
-    console.log(mainContent);
     const imageData = new Uint8Array(post.image.data.data);
     console.log(imageData);
     const blob = new Blob([imageData], { type: post.image.contentType });
@@ -92,10 +90,15 @@ const PostList = ({}) => {
         >
           <div className="card-body">
             <img src={imageUrl} alt="image" style={{ width: "100%", height: "150px", marginBottom: "20px"}}/>
-            <h3>{post.title}</h3>
+            <h4>{post.title}</h4>
             <span style={{ fontSize: "12px", marginLeft: "5px" }}>
             {postDate}</span>
-            <p style={{ fontWeight:12, fontSize: "15px" }}>{post.main_content}</p>
+            <p style={{ fontWeight: 12, fontSize: "15px" }}>
+              {post.main_content.length > 130
+                ? post.main_content.slice(0, 130) + "..."
+                : post.main_content}
+            </p>
+
             <button className="view_button" onClick={() => handlePostClick(post)}>View Post</button>
             <span className="view_count">
             <FontAwesomeIcon icon={faEye} />
