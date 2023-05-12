@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./style.css";
 
 const PostCreate = () => {
@@ -19,17 +21,21 @@ const PostCreate = () => {
     formData.append("date", currentDate);
     formData.append("count", 0);
     formData.append("image", image);
-
+  
     await axios.post("http://localhost:4000/posts", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+  
     setTitle("");
     setTags("");
     setMainContent("");
     setImage(null);
+    
+    toast.success('Post created!');
   };
+  
 
   return (
     <div className="post-create">

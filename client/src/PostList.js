@@ -75,16 +75,12 @@ const PostList = () => {
     const mainContent = post.main_content.split("\n").slice(0, 5).join("\n");
     console.log(mainContent);
     const imageData = new Uint8Array(post.image.data.data);
-    console.log(imageData);
     const blob = new Blob([imageData], { type: post.image.contentType });
     const imageUrl = URL.createObjectURL(blob);
-    console.log(imageUrl);
-    
+
     const image = document.createElement('img');
     image.src = imageUrl;
-    
     document.body.appendChild(image);
-    
 
     return (
       <div
@@ -95,7 +91,7 @@ const PostList = () => {
         <div className="card-body">
           <img src={imageUrl} alt="image" style={{ width: "100%", height: "150px", marginBottom: "20px"}}/>
           <h3>{post.title}</h3>
-          
+
           <span style={{ fontSize: "12px", marginLeft: "5px" }}>
             {postDate}
           </span>
