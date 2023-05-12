@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import './style.css'; 
+import Cookies from 'js-cookie';
 
 const CommentCreate = ({ postId }) => {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = Cookies.get('authToken');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const decoded = jwtDecode(token);

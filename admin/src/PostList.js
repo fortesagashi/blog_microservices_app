@@ -6,6 +6,7 @@ import PostCreate from "./PostCreate";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
+import Cookies from 'js-cookie';
 
 const PostList = ({}) => {
   const POSTS_PER_PAGE = 3;
@@ -58,7 +59,7 @@ const PostList = ({}) => {
   }, [posts]);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    Cookies.remove('authToken');
     window.location.reload(); // Reload the page to go back to the login page
   };
 

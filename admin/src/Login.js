@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './style.css'; 
+import Cookies from 'js-cookie';
 
 const App = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const App = () => {
     try {
       const response = await axios.post('http://localhost:4003/login', { email, password });
       const { token } = response.data;
-      localStorage.setItem('authToken', token);
+      Cookies.set('authToken', token, { expires: 1/24 }); // set the cookie to expire after 1 hour
       setMessage('Logged in successfully');
       window.location.reload();
     } catch (error) {
@@ -19,7 +20,6 @@ const App = () => {
       setMessage('Invalid credentials');
     }
   };
-  
 
   return (
     <div className="app-container">

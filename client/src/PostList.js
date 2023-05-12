@@ -5,6 +5,7 @@ import PopularTags from "./PopularTags";
 import CommentCreate from "./CommentCreate";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 const PostList = ({  }) => {
   const POSTS_PER_PAGE = 3;
@@ -59,7 +60,7 @@ const PostList = ({  }) => {
   }, [posts]);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    Cookies.remove('authToken');
     window.location.reload(); // Reload the page to go back to the login page
   };
 
