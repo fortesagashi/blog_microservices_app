@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const PostList = ({}) => {
   const POSTS_PER_PAGE = 3;
@@ -127,6 +128,7 @@ const PostList = ({}) => {
     fetchPosts();
     setShowConfirmModal(false);
     setSelectedPost(null);
+    toast.success('Post deleted!');
   };
   
   const handleViewPostsClick = () => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
@@ -25,6 +26,8 @@ const CommentList = ({ postId }) => {
     setDeleteCommentId(null);
     setShowConfirmModal(false);
     fetchData();
+    toast.success('Comment deleted!');
+
   };
 
   const renderedComments = comments.map((comment) => {
