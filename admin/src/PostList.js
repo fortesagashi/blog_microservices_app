@@ -72,15 +72,8 @@ const PostList = ({}) => {
   .map((post) => {
     const postDate = new Date(post.date).toLocaleString();
     const imageData = new Uint8Array(post.image.data.data);
-    console.log(imageData);
     const blob = new Blob([imageData], { type: post.image.contentType });
     const imageUrl = URL.createObjectURL(blob);
-    console.log(imageUrl);
-    
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    
-    document.body.appendChild(image);
     
       return (
         <div

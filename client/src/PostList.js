@@ -72,15 +72,9 @@ const PostList = () => {
   .slice(startIndex, endIndex)
   .map((post) => {
     const postDate = new Date(post.date).toLocaleString();
-    const mainContent = post.main_content.split("\n").slice(0, 5).join("\n");
-    console.log(mainContent);
     const imageData = new Uint8Array(post.image.data.data);
     const blob = new Blob([imageData], { type: post.image.contentType });
     const imageUrl = URL.createObjectURL(blob);
-
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    document.body.appendChild(image);
 
     return (
       <div
@@ -114,6 +108,7 @@ const PostList = () => {
       </div>
     );
   });
+
 
 
   const handleSearch = (e) => {
