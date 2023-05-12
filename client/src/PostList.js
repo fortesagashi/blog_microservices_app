@@ -3,11 +3,11 @@ import CommentList from "./CommentList";
 import axios from "axios";
 import PopularTags from "./PopularTags";
 import CommentCreate from "./CommentCreate";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
-const PostList = ({  }) => {
+const PostList = () => {
   const POSTS_PER_PAGE = 3;
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -56,11 +56,11 @@ const PostList = ({  }) => {
 
     setPopularTags(popularTags);
 
-    console.log("popular tags:", popularTags); 
+    console.log("popular tags:", popularTags);
   }, [posts]);
 
   const handleLogout = () => {
-    Cookies.remove('authToken');
+    Cookies.remove("authToken");
     window.location.reload(); // Reload the page to go back to the login page
   };
 
@@ -68,13 +68,23 @@ const PostList = ({  }) => {
   const endIndex = startIndex + POSTS_PER_PAGE;
 
   const displayedPosts = Object.values(posts)
-    .filter((post) =>
-      post.tags.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .slice(startIndex, endIndex)
-    .map((post) => {
-      const postDate = new Date(post.date).toLocaleString();
-      const mainContent = post.main_content.split('\n').slice(0, 5).join('\n');
+  .filter((post) => post.tags.toLowerCase().includes(searchQuery.toLowerCase()))
+  .slice(startIndex, endIndex)
+  .map((post) => {
+    const postDate = new Date(post.date).toLocaleString();
+    const mainContent = post.main_content.split("\n").slice(0, 5).join("\n");
+    console.log(mainContent);
+    const imageData = new Uint8Array(post.image.data.data);
+    console.log(imageData);
+    const blob = new Blob([imageData], { type: post.image.contentType });
+    const imageUrl = URL.createObjectURL(blob);
+    console.log(imageUrl);
+    
+    const image = document.createElement('img');
+    image.src = imageUrl;
+    
+    document.body.appendChild(image);
+    
 
     return (
       <div
@@ -82,12 +92,13 @@ const PostList = ({  }) => {
         style={{ width: "30%", marginBottom: "20px"}}
         key={post.id}
       >
-        <div className="card-body" >
+        <div className="card-body">
+          <img src={imageUrl} alt="image" style={{ width: "100%", height: "150px", marginBottom: "20px"}}/>
           <h3>{post.title}</h3>
+          
           <span style={{ fontSize: "12px", marginLeft: "5px" }}>
             {postDate}
           </span>
-          {post.image && <img src={post.image} alt="post image" />}
           <p style={{ fontWeight:12, fontSize: "15px" }}>{mainContent}</p>
           <button
             className="view_button"
@@ -104,6 +115,7 @@ const PostList = ({  }) => {
     );
   });
 
+
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -116,55 +128,57 @@ const PostList = ({  }) => {
     <div className="d-flex flex-row">
       <div className="sidebar">
         <PopularTags tags={popularTags} />
-        <button onClick={handleViewPostsClick} className="sidebar-button" >
+        <button onClick={handleViewPostsClick} className="sidebar-button">
           View Posts
-        </button><br/>
+        </button>
+        <br />
         <button
           onClick={handleLogout}
-          style={{ marginTop: "530px", backgroundColor: "#B81030", marginLeft:"60px"}}
+          style={{ marginTop: "530px", backgroundColor: "#B81030", marginLeft: "60px" }}
         >
           Logout
         </button>
       </div>
       <div className="content">
-            <div className="search-box">
-              <input
-                type="text"
-                placeholder="Search by post tag"
-                value={searchQuery}
-                onChange={handleSearch}
-              />
-              <button className="search-btn">Search</button>
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search by post tag"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+          <button className="search-btn">Search</button>
+        </div>
+        {selectedPost ? (
+          <div className="post-create">
+            <h2>{selectedPost.title}</h2>
+            <p>{selectedPost.main_content}</p>
+            
+            <CommentList postId={selectedPost.id} />
+            <CommentCreate postId={selectedPost.id} />
+            <button onClick={() => setSelectedPost(null)}>Go Back</button>
+          </div>
+        ) : (
+          <>
+            <div className="d-flex flex-row flex-wrap justify-content-between">
+              {displayedPosts}
             </div>
-            {selectedPost ? (
-              <div className="post-create">
-                <h2>{selectedPost.title}</h2>
-                <p>{selectedPost.main_content}</p>
-                <CommentList postId={selectedPost.id} />
-                <CommentCreate postId={selectedPost.id} />
-                <button onClick={() => setSelectedPost(null)}>Go Back</button>
-              </div>
-            ) : (
-              <>
-                <div className="d-flex flex-row flex-wrap justify-content-between">
-                  {displayedPosts}
-                </div>
-                <div className="pagination">
-                  {[...Array(totalPages)].map((_, index) => (
-                    <button
-                      key={index}
-                      className={currentPage === index + 1 ? "active" : ""}
-                      onClick={() => handlePageChange(index + 1)}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
+            <div className="pagination">
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  className={currentPage === index + 1 ? "active" : ""}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
-};  
+              };  
 
 export default PostList;

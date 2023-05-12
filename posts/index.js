@@ -6,6 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 const posts = {};
+const fs = require('fs');
 const mongoose = require('mongoose');
 
 // Set the CORS headers
@@ -34,8 +35,13 @@ const postSchema = new mongoose.Schema({
   count: {
     type: Number,
     default: 0
+  },
+  image: {
+    data: Buffer,
+    contentType: String
   }
 });
+
 
 const Post = mongoose.model('Post', postSchema);
 
@@ -50,15 +56,34 @@ app.delete('/posts/:id', async (req, res) => {
     res.sendStatus(204);
 });
   
-app.post('/posts', async (req, res) => {
-    const id = randomBytes(4).toString('hex');
-    const { title, main_content, tags, date } = req.body;
-    const post = new Post({ id, title, main_content, tags, date, count: 0 });
-    console.log(date);
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/posts', upload.single('image'), async (req, res) => {
+  const id = randomBytes(4).toString('hex');
+  const { title, main_content, tags, date } = req.body;
+
+  const post = new Post({ id, title, main_content, tags, date, count: 0 });
+  console.log(req.file);
+  
+  // If an image was uploaded, store the file path in the post object
+  if (req.file) {
+    post.image = {
+      data: fs.readFileSync(req.file.path),
+      contentType: 'image/png'
+    };
+  }
+
+  try {
+    console.log(post);
     await post.save();
     res.status(201).send(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
-  
+
 app.put('/posts/:id/count', async (req, res) => {
   const { id } = req.params;
   try {

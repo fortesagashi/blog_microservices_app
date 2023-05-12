@@ -1,33 +1,40 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./style.css"; 
+import "./style.css";
 
 const PostCreate = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [main_content, setMainContent] = useState("");
+  const [image, setImage] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const currentDate = new Date().toISOString(); // get current date as ISO string
     // Add count field with a value of 0 to the request payload
-    const payload = {
-      title: title,
-      tags: tags,
-      main_content: main_content,
-      date: currentDate,
-      count: 0
-    };
-    await axios.post("http://localhost:4000/posts", payload);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("tags", tags);
+    formData.append("main_content", main_content);
+    formData.append("date", currentDate);
+    formData.append("count", 0);
+    formData.append("image", image);
+
+    await axios.post("http://localhost:4000/posts", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     setTitle("");
     setTags("");
     setMainContent("");
+    setImage(null);
   };
 
   return (
     <div className="post-create">
       <h2>Create Post</h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} encType="multipart/form-data">
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
@@ -55,6 +62,20 @@ const PostCreate = () => {
             rows="18"
             className="form-control"
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="image">Image</label>
+          <input
+            id="image"
+            type="file"
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setImage(e.target.files[0]);
+            }}
+            className="form-control"
+          />
+
+
         </div>
 
         <button className="btn btn-primary">Submit</button>
